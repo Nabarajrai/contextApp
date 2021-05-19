@@ -9,19 +9,44 @@ import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./stlyes/NavStyle";
 import { withStyles } from "@material-ui/core/styles";
 import { ThemeContext } from "./contexts/ThemeContext";
+import {
+  LanguageContext,
+  withLanguageContext,
+} from "./contexts/LanguageContext";
+
+const content = {
+  English: {
+    search: "Search",
+    imoji: "😆",
+  },
+  French: {
+    search: "Seatonere",
+    imoji: "💌",
+  },
+
+  Spanish: {
+    search: "Searchoiwie",
+    imoji: " 🤟",
+  },
+};
 
 export class Navbar extends Component {
   static contextType = ThemeContext;
+
   render() {
     const { isDarkMode } = this.context;
     const { handleToggle } = this.context;
+    const { language } = this.props.LanguageContext;
+
+    const { search, imoji } = content[language];
+    console.log(search);
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static" color={isDarkMode ? "default" : "primary"}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit">
-              <span>😆</span>
+              <span>{imoji}</span>
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               App Title
@@ -33,7 +58,7 @@ export class Navbar extends Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="search..."
+                placeholder={search}
                 classes={{
                   root: classes.inputInputRoot,
                   input: classes.inputInput,
@@ -47,4 +72,4 @@ export class Navbar extends Component {
   }
 }
 
-export default withStyles(useStyles)(Navbar);
+export default withLanguageContext(withStyles(useStyles)(Navbar));

@@ -1,5 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
-const useStyle = makeStyles((theme) => ({
+const useStyle = (theme) => ({
   main: {
     width: "auto",
     display: "block",
@@ -32,6 +31,6 @@ const useStyle = makeStyles((theme) => ({
   submit: {
     marginTop: theme.spacing(3),
   },
-}));
+});
 
 export default useStyle;

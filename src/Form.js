@@ -12,47 +12,77 @@ import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import useStyle from "./stlyes/FormStyle";
+import { withStyles } from "@material-ui/core/styles";
+import { LanguageContext } from "./contexts/LanguageContext";
 
-const Form = () => {
-  const classes = useStyle();
-  return (
-    <main className={classes.main}>
-      <Paper className={classes.paper}>
-        <Avater className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avater>
-        <Typography variant="h6">Sign In</Typography>
-        <Select margin="normal" value="English">
-          <MenuItem value="English">English</MenuItem>
-          <MenuItem value="French">French</MenuItem>
-          <MenuItem value="Spanish">Spanish</MenuItem>
-        </Select>
-        <form className={classes.form}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email</InputLabel>
-            <Input id="email" autoFocus name="email" />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input id="password" autoFocus name="password" />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            variant="contained"
-            type="submit"
-            className={classes.submit}
-            fullWidth
-            color="primary"
-          >
-            Sign In
-          </Button>
-        </form>
-      </Paper>
-    </main>
-  );
+const words = {
+  English: {
+    signIn: "Sign In",
+    email: "Email",
+    password: "Password",
+    remberme: "Remember me",
+  },
+  French: {
+    signIn: "Se Connecter",
+    email: "Adresse Electronique",
+    password: "Mo te pass",
+    remberme: "soventity moi",
+  },
+  Spanish: {
+    signIn: "Connector",
+    email: "Electronique",
+    password: "Te pass",
+    remberme: "Moi Soventity",
+  },
 };
 
-export default Form;
+class Form extends React.Component {
+  static contextType = LanguageContext;
+  render() {
+    const { language } = this.context;
+    const { handleToggle } = this.context;
+    const { email, signIn, password, remberme } = words[language];
+
+    const { classes } = this.props;
+    return (
+      <main className={classes.main}>
+        <Paper className={classes.paper}>
+          <Avater className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avater>
+          <Typography variant="h6">{signIn}</Typography>
+          <Select margin="normal" value={language} onChange={handleToggle}>
+            <MenuItem value="English">English</MenuItem>
+            <MenuItem value="French">French</MenuItem>
+            <MenuItem value="Spanish">Spanish</MenuItem>
+          </Select>
+          <form className={classes.form}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">{email}</InputLabel>
+              <Input id="email" autoFocus name="email" />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">{password}</InputLabel>
+              <Input id="password" autoFocus name="password" />
+            </FormControl>
+            <FormControlLabel
+              control={<Checkbox color="primary" />}
+              label={remberme}
+            />
+            <Button
+              variant="contained"
+              type="submit"
+              className={classes.submit}
+              fullWidth
+              color="primary"
+            >
+              {signIn}
+            </Button>
+          </form>
+        </Paper>
+      </main>
+    );
+  }
+}
+
+export default withStyles(useStyle)(Form);
