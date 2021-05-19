@@ -1,4 +1,4 @@
-import React, { useContext, Component } from "react";
+import React, { Component } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,10 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./stlyes/NavStyle";
 import { withStyles } from "@material-ui/core/styles";
 import { ThemeContext } from "./contexts/ThemeContext";
-import {
-  LanguageContext,
-  withLanguageContext,
-} from "./contexts/LanguageContext";
+import { withLanguageContext } from "./contexts/LanguageContext";
 
 const content = {
   English: {
